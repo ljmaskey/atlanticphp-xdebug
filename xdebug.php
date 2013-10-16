@@ -7,10 +7,11 @@ declare(ticks=1);
 define('END_TIME', (microtime(true) + 10));
 
 register_tick_function(function() {
-	global $random_strings;
+	global $random_strings, $db_link;
 	
 	if (microtime(true) > END_TIME) {
 		$string_count = count($random_strings);
+		$db_link->commit();
 		die("We're taking too long. We did get $string_count strings though.\n");
 	}
 });
@@ -44,6 +45,7 @@ $db_link->query('TRUNCATE string_list');
 define('NUMBER_OF_STRINGS', 10000);
 $random_strings = array();
 
+$db_link->beginTransaction();
 while (count($random_strings) < NUMBER_OF_STRINGS) {
 	$new_string = GenerateRandomString();
 
@@ -68,5 +70,6 @@ while (count($random_strings) < NUMBER_OF_STRINGS) {
 		echo '.';
 	}
 }
+$db_link->commit();
 
 echo "\nDONE!\n";
