@@ -49,8 +49,8 @@ $db_link->beginTransaction();
 while (count($random_strings) < NUMBER_OF_STRINGS) {
 	$new_string = GenerateRandomString();
 
-	if (! in_array($new_string, $random_strings)) {
-		$random_strings[] = $new_string;
+	if (! isset($random_strings[$new_string])) {
+		$random_strings[$new_string] = $new_string;
 		$db_link->query("INSERT INTO string_list (id, the_string) VALUES (null, '$new_string')");
 	} else {
 		echo "We already have the string '$new_string'. Let's start again.\n";
