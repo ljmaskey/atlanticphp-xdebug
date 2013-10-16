@@ -1,4 +1,5 @@
 <?php
+xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
 // time php -d xdebug.profiler_enable=1 -d xdebug.profiler_output_dir=. xdebug.php
 /*
  * We want to stop as soon as possible after the end time (within reason).
@@ -12,6 +13,7 @@ register_tick_function(function() {
 	if (microtime(true) > END_TIME) {
 		$string_count = count($random_strings);
 		$db_link->commit();
+		var_dump(xdebug_get_code_coverage());
 		die("We're taking too long. We did get $string_count strings though.\n");
 	}
 });
@@ -73,3 +75,4 @@ while (count($random_strings) < NUMBER_OF_STRINGS) {
 $db_link->commit();
 
 echo "\nDONE!\n";
+var_dump(xdebug_get_code_coverage());
