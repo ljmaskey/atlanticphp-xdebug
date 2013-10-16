@@ -23,10 +23,7 @@ register_tick_function(function() {
  * @return string
  */
 function GenerateRandomString($length = 10) {
-	static $possible_characters = null;
-	if ($possible_characters === null) {
-		$possible_characters = array_merge(range('A', 'Z'), range('a', 'z'), range('0', '9'));
-	}
+	$possible_characters = array_merge(range('A', 'Z'), range('a', 'z'), range('0', '9'));
 	
 	$the_string = '';
 	for ($i = 0; ($i < $length); $i++) {
