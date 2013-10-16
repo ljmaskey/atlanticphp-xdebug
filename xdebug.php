@@ -1,9 +1,9 @@
 <?php
 // time php -d xdebug.profiler_enable=1 -d xdebug.profiler_output_dir=. xdebug.php
 /*
- * We want to stop as soon as possible after the end time.
+ * We want to stop as soon as possible after the end time (within reason).
  */
-declare(ticks=1);
+declare(ticks=100);
 define('END_TIME', (microtime(true) + 10));
 
 register_tick_function(function() {
